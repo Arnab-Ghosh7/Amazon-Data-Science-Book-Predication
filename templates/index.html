@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Classification App</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    >
+
+    <style>
+        body {
+            background-color: #f4f6fb;
+        }
+        .card {
+            margin-top: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        textarea {
+            resize: none;
+        }
+        #result {
+            font-weight: bold;
+            color: #1b2d6b;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>📄 Text Classification</h3>
+                    <p class="mb-0">TF-IDF + Logistic Regression</p>
+                </div>
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="textInput">Enter text</label>
+                        <textarea
+                            id="textInput"
+                            class="form-control"
+                            rows="6"
+                            placeholder="Enter book description or text here..."
+                        ></textarea>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="predictBtn">
+                        Predict
+                    </button>
+
+                    <hr>
+
+                    <div id="resultBox" style="display:none;">
+                        <h5>Prediction Result:</h5>
+                        <p id="result"></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $("#predictBtn").click(function () {
+        const text = $("#textInput").val();
+
+        if (!text.trim()) {
+            alert("Please enter some text");
+            return;
+        }
+
+        $("#resultBox").hide();
+        $("#result").text("");
+
+        $.ajax({
+            url: "/predict",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ text: text }),
+            success: function (response) {
+                $("#result").text(response.prediction);
+                $("#resultBox").show();
+            },
+            error: function (err) {
+                alert("Prediction failed. Check server logs.");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

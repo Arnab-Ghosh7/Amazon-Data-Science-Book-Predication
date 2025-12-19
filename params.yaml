@@ -1,0 +1,12 @@
+# Training parameters
+EPOCHS: 5
+BATCH_SIZE: 32
+LEARNING_RATE: 0.001
+
+# Text processing
+MAX_FEATURES: 5000
+NGRAM_RANGE: [1, 2]
+
+# Model
+MODEL_TYPE: logistic_regression
+
