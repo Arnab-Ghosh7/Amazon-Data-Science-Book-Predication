@@ -1,81 +1,109 @@
-# Chicken Disease Classification using CNN
+### 🔧 Built With
 
+![Python](https://img.shields.io/badge/Python-3.7%2B-blue)
+![NLP](https://img.shields.io/badge/NLP-Text%20Classification-green)
+![Model](https://img.shields.io/badge/Model-TF--IDF%20%2B%20LogReg-orange)
+![Backend](https://img.shields.io/badge/Backend-Flask-black)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-Chicken diseases pose a serious challenge to the poultry industry, as they can spread rapidly and significantly impact animal health and productivity. Traditional disease identification methods often rely on manual inspection, which can be time-consuming and prone to error.
+# 📚 Amazon Data Science Book Classification
 
-This project addresses the problem by using image-based disease detection, where visual patterns present in chicken fecal samples are analyzed using deep learning. By automating the detection process, the system helps in identifying potential diseases at an early stage, enabling faster decision-making and improved disease management.
-
+A complete end-to-end NLP machine learning project that classifies Amazon Data Science books using TF-IDF features and Logistic Regression, wrapped inside a production-ready pipeline with training, evaluation, and a Flask web application for real-time predictions.
 
 ---
 
-## Project Overview
+## 🚀 Project Overview
 
-The Chicken Disease Classification Project is an end-to-end deep learning application designed to identify diseases in chickens through image-based analysis. The primary objective of this project is to assist in early disease detection by analyzing chicken fecal images using a Convolutional Neural Network (CNN).
+This project is a full-stack Natural Language Processing (NLP) machine learning application designed to automatically classify Amazon Data Science–related books based on textual information such as book titles or descriptions.
 
-The project follows a structured and modular machine learning workflow, including data ingestion, preprocessing, model building, training, and evaluation. Configuration and parameter files are used to manage paths and hyperparameters, ensuring reproducibility and scalability. The training pipeline is orchestrated using DVC, allowing efficient experiment tracking and version control.
+The goal of the project is to demonstrate how a real-world text classification system can be built using classical machine learning techniques while following production-level software engineering practices. Rather than focusing only on model accuracy, the project emphasizes clean architecture, modular design, reproducibility, and deployability, which are critical in industry environments.
 
-In addition to model training, the project provides a Flask-based web application that enables users to upload images and receive real-time predictions. This makes the solution suitable for practical deployment as well as academic and research purposes.
+At its core, the system converts raw text into numerical representations using TF-IDF (Term Frequency–Inverse Document Frequency), capturing both the importance of words and their contextual relevance. These features are then fed into a Logistic Regression classifier, a strong and interpretable baseline model widely used for large-scale text classification tasks.
 
-Overall, this project demonstrates the application of deep learning and MLOps practices to solve a real-world problem in the poultry industry, focusing on automation, reliability, and ease of use.
+The entire workflow is structured as a pipeline consisting of clearly separated stages:
+
+- Data ingestion from a structured CSV source
+
+- Model training using configurable hyperparameters
+
+- Model evaluation with comprehensive performance metrics
+
+- Real-time inference through a RESTful API
+
+To make the project end-user accessible, a Flask web application is integrated, allowing users to input text and receive predictions instantly. All intermediate outputs—including trained models, logs, and evaluation reports—are stored as versioned artifacts, ensuring traceability and reproducibility.
 
 ---
 
 ## Tech Stack
+- Programming Language: Python
 
-- Python  
-- TensorFlow / Keras  
-- Convolutional Neural Network (CNN)  
-- Flask  
-- DVC  
-- NumPy, Pandas  
-- Matplotlib  
+- Machine Learning:
+
+- TF-IDF Vectorizer
+
+- Logistic Regression (Scikit-learn)
+
+- Backend: Flask
+
+- Pipeline Management: Custom modular pipeline
+
+- Model Persistence: Joblib
+
+- Configuration: YAML
+
+- Frontend: HTML + Bootstrap
+
+- Deployment Ready: Yes 
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 <pre>
-Chicken-Disease-Classification-Project
+Amazon-Data-Science-Book/
 │
-├── app.py
-├── main.py
-├── requirements.txt
-├── setup.py
-├── params.yaml
-├── dvc.yaml
-├── scores.json
-├── inputImage.jpg
+├── app.py                         # Flask application
+├── main.py                        # Pipeline runner
+├── setup.py                       # Package setup
+├── params.yaml                    # Model & training parameters
+├── config.yaml                    # Pipeline configuration
 │
-├── config/
-│   └── config.yaml
-│
-├── research/
-│   ├── 01_data_ingestion.ipynb
-│   ├── 02_prepare_base_model.ipynb
-│   ├── 03_prepare_callbacks.ipynb
-│   ├── 04_training.ipynb
-│   ├── 05_model_evaluation.ipynb
-│   └── trials.ipynb
+├── artifacts/
+│   ├── data_ingestion/            # Raw & processed data
+│   ├── training/                  # Trained model
+│   └── evaluation/                # Evaluation reports
 │
 ├── src/
 │   └── cnnClassifier/
 │       ├── components/
+│       │   ├── data_ingestion.py
+│       │   ├── training.py
+│       │   ├── evaluation.py
+│       │   └── prediction.py
+│       │
 │       ├── config/
-│       ├── constants/
+│       │   └── configuration.py
+│       │
 │       ├── entity/
+│       │   └── config_entity.py
+│       │
 │       ├── pipeline/
-│       └── utils/
+│       │   ├── stage_01_data_ingestion.py
+│       │   ├── stage_03_training.py
+│       │   └── stage_04_evaluation.py
+│       │
+│       ├── utils/
+│       │   └── common.py
+│       │
+│       └── __init__.py
 │
 ├── templates/
-│   └── index.html
+│   └── index.html                 # Web UI
 │
-├── .github/
-│   └── workflows/
-│
-├── .dvc/
-├── .vscode/
-├── LICENSE
-└── .gitignore
+└── logs/
+    └── running_logs.log
+
 </pre>
 
 ---
@@ -83,9 +111,8 @@ Chicken-Disease-Classification-Project
 ## DVC Pipeline Stages
 
 1. Data Ingestion  
-2. Prepare Base Model  
-3. Model Training  
-4. Model Evaluation  
+2. Model Training  
+3. Model Evaluation  
 
 Run the full pipeline:
 <pre>dvc repro</pre>
@@ -93,14 +120,14 @@ Run the full pipeline:
 ## Clone the Repository
 
 ```text
-git clone https://github.com/Arnab-Ghosh7/Chicken-Disease-Classification-Project.git
-cd Chicken-Disease-Classification-Project
+git clone https://github.com/Arnab-Ghosh7/Amazon-Data-Science-Book-Predication.git
+cd Amazon-Data-Science-Book-Predication
 ```
 ## Create Environment & Install Dependencies
 
 ```text
-conda create -n chicken python=3.8 -y
-conda activate chicken
+conda create -n nlp_env python=3.10 -y
+conda activate nlp_env
 pip install -r requirements.txt
 ```
 
@@ -123,17 +150,19 @@ http://127.0.0.1:5000/
 ## Model Output
 
 The model predicts whether the chicken fecal image belongs to:
-- Healthy
-- Diseased
+- Accuracy
 
-Evaluation metrics are stored in `scores.json`.
+- Precision (weighted)
 
----
+- Recall (weighted)
 
-## Configuration
+- F1-Score
 
-- `config/config.yaml` contains all path and artifact configurations  
-- `params.yaml` contains model hyperparameters  
+- Full classification report
+
+Evaluation metrics are stored in - artifacts/evaluation/
+
+
 
 ---
 
